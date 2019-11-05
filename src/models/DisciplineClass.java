@@ -4,11 +4,7 @@ import java.util.*;
 
 public class DisciplineClass {
 	private Map<String, Student> studentList = new TreeMap<String, Student>();
-
-	public void markPresence(Student student) {
-		String name = student.getNome();
-		studentList.put(name, student);
-	}
+	private LinkedList<AttendanceList> attendanceList = new LinkedList<AttendanceList>();
 
 	public Map<String, Student> getStudentList() {
 		return studentList;
@@ -18,9 +14,16 @@ public class DisciplineClass {
 		this.studentList = studentList;
 	}
 
-	@Override
-	public String toString() {
-		return "DisciplineClass studentList " + studentList.toString();
+	public LinkedList<AttendanceList> getAttendanceList() {
+		return attendanceList;
+	}
+
+	public void setAttendanceList(LinkedList<AttendanceList> attendanceList) {
+		this.attendanceList = attendanceList;
+	}
+	
+	public void addStudent(Student student) {
+		studentList.put(student.getName(), student);
 	}
 
 }
