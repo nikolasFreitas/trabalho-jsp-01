@@ -19,7 +19,7 @@ public class CourseController {
 		Discipline discipline = getDiscipline(disciplineName);
 		return discipline.addNewClass(disciplineClass);
 	}
-	
+
 	public void addDiscipline(Discipline discipline) {
 		course.addDiscipline(discipline);
 	}
@@ -27,9 +27,7 @@ public class CourseController {
 	public void addStudent(Student student, String disciplineName) {
 		Discipline discipline = getDiscipline(disciplineName);
 
-		discipline.getDisciplineClassList().getLast().getStudentList()
-				.put(student.getName(), student);
-
+		discipline.getDisciplineClassList().getLast().getStudentList().put(student.getName(), student);
 	}
 
 	public boolean addAttendence(AttendanceList attendanceList, String disciplineName) {
@@ -37,15 +35,19 @@ public class CourseController {
 		return discipline.getDisciplineClassList().getLast().getAttendanceList().add(attendanceList);
 	}
 
-	public void markPresence(Student student, String disciplineName) throws IllegalArgumentException {
+	public boolean markPresence(Student student, String disciplineName) {
 		Discipline discipline = getDiscipline(disciplineName);
 		String name = student.getName();
 		if (getStudentFromDisciplineClass(name, disciplineName)) {
 			AttendanceList attendanceList = discipline.getDisciplineClassList().getLast().getAttendanceList().getLast();
-			attendanceList.getStudentListKey().add(name);
-		} else {
-			throw new IllegalArgumentException("Estudante não encontrando na lista, presença não confirmada");
+			try {
+				return attendanceList.addStudentKey(name);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
+
+		return false;
 	}
 
 	private Discipline getDiscipline(String disciplineName) throws IllegalArgumentException {
@@ -56,7 +58,7 @@ public class CourseController {
 
 		throw new IllegalArgumentException("Disciplina \"" + disciplineName + "\" não encontranda");
 	}
-	
+
 	private boolean getStudentFromDisciplineClass(String name, String disciplineName) {
 		Discipline discipline = getDiscipline(disciplineName);
 		return discipline.getDisciplineClassList().getLast().getStudentList().containsKey(name);
