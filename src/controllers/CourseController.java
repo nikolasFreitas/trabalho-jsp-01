@@ -10,6 +10,10 @@ import models.Student;
 
 public class CourseController {
 	private Course course = new Course();
+	
+	public CourseController() {
+		
+	}
 
 	public Set<String> getDisciplineKeys() {
 		return course.getDisciplineList().keySet();
