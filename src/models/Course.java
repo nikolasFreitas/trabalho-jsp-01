@@ -8,10 +8,16 @@ public class Course {
 	private String courseName;
 	private Map<String, Discipline> disciplineList = new TreeMap<String, Discipline>();
 
-	public void addDiscipline(Discipline discipline) {
+	public boolean addDiscipline(Discipline discipline) {
 		String name = discipline.getName();
-
-		disciplineList.put(name, discipline);
+		try {
+			disciplineList.put(name, discipline);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
 	}
 
 	public String getCourseName() {

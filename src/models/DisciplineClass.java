@@ -3,8 +3,26 @@ package models;
 import java.util.*;
 
 public class DisciplineClass {
-	private Map<String, Student> studentList = new TreeMap<String, Student>();
-	private LinkedList<AttendanceList> attendanceList = new LinkedList<AttendanceList>();
+	private int id;
+	private Map<String, Student> studentList;
+	private LinkedList<AttendanceList> attendanceList;
+	
+	public DisciplineClass() {
+		super();
+		studentList = new TreeMap<String, Student>();
+		attendanceList = new LinkedList<AttendanceList>();
+	}
+
+	public DisciplineClass(Map<String, Student> studentList, LinkedList<AttendanceList> attendanceList, int id) {
+		super();
+		this.studentList = studentList;
+		this.attendanceList = attendanceList;
+		this.id = id;
+	}
+
+	public void addStudent(Student student) {
+		studentList.put(student.getName(), student);
+	}
 
 	public Map<String, Student> getStudentList() {
 		return studentList;
@@ -22,8 +40,14 @@ public class DisciplineClass {
 		this.attendanceList = attendanceList;
 	}
 	
-	public void addStudent(Student student) {
-		studentList.put(student.getName(), student);
+	public int getId() {
+		return id;
 	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
 
 }
