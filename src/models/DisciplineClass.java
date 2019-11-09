@@ -1,12 +1,15 @@
 package models;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class DisciplineClass {
+public class DisciplineClass implements Serializable {
+	private static final long serialVersionUID = -8246309921122652770L;
+
 	private int id;
 	private Map<String, Student> studentList;
 	private LinkedList<AttendanceList> attendanceList;
-	
+
 	public DisciplineClass() {
 		super();
 		studentList = new TreeMap<String, Student>();
@@ -39,7 +42,7 @@ public class DisciplineClass {
 	public void setAttendanceList(LinkedList<AttendanceList> attendanceList) {
 		this.attendanceList = attendanceList;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -47,7 +50,5 @@ public class DisciplineClass {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-
 
 }

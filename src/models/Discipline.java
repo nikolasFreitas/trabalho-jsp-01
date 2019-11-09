@@ -1,8 +1,14 @@
 package models;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class Discipline {
+public class Discipline implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 526924691299654001L;
 	private String name;
 	private LinkedList<DisciplineClass> disciplineClassList = new LinkedList<DisciplineClass>();
 

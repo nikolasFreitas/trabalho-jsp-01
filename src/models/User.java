@@ -5,7 +5,20 @@ import models.enums.TypeOfUser;
 public abstract class User {
 	private String nome;
 	private String eMail;
+	private static int id = 0;
 	private TypeOfUser typeOfUser;
+	
+	public User() {
+		id++;
+	}
+	
+	public User(int id) {
+		User.id = id;
+	}
+	
+	public int getId() {
+		return id;
+	}
 	
 	public String getName() {
 		return nome;

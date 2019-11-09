@@ -1,9 +1,15 @@
 package models;
 
+import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class AttendanceList {
+public class AttendanceList implements Comparable<LocalDate>, Serializable {
+	/**
+	 * General serial version
+	 */
+	private static final long serialVersionUID = 1774360551001149093L;
 	Set<String> studentListKey = new LinkedHashSet<String>();
 	
 	public boolean addStudentKey(String studentKey) {
@@ -33,6 +39,11 @@ public class AttendanceList {
 		}
 		
 		return stringToSend.toString();
+	}
+
+	@Override
+	public int compareTo(LocalDate date) {		
+		return date.compareTo(date);
 	}
 
 }
