@@ -39,9 +39,11 @@ public class Start {
 	private void createStudent() {
 		Student student = new Student();
 		student.setName("Getúlio");
+		student.setId(1);
 
 		Student student2 = new Student();
 		student2.setName("Jayme");
+		student.setId(2);
 
 		this.studentList.add(student);
 		this.studentList.add(student2);
