@@ -51,13 +51,13 @@ li {
 	<ul>
 	
 	<%
-		Set<Student> studentList;
-		studentList = courseController.getStudentFromDisciplineClass();
-		
-		System.out.println(studentList);
-		for(Student student : studentList) {
-			%><li>
-				<a href="student">
+			Set<Student> studentList;
+				studentList = courseController.getStudentListFromDisciplineClass();
+				
+				for(Student student : studentList) {
+				System.out.println(student.getId());
+		%><li>
+				<a href="Discipline.jsp?studentName=<%=student.getName()%>">
 					<%= student.getName() %>
 				</a>
 			</li><%
