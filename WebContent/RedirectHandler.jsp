@@ -40,10 +40,10 @@ li {
 }
 </style>
 <body>
+
 	<div>
-		<p><a href="DisciplineClass.jsp?<%=qs%>">Adicionado, página</a></p>
-		
-	
+		<p>Banco atualizado!</p>
+		<p><a href="DisciplineClass.jsp?<%=qs%>">Voltar para página anterior</a></p>	
 	</div>
 </body>
 </html>

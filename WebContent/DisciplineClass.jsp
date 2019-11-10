@@ -45,6 +45,8 @@ h1 {
 
 div {
 	padding: 15px;
+	max-width: 80%;
+	margin: 0px auto 25px;
 }
 
 table {
@@ -65,8 +67,6 @@ th {
 .red {
 	color: #e74c3c;
 }
-
-
 
 tr:nth-child(even) {
 	background: #95a5a6;
@@ -95,8 +95,8 @@ input {
 </style>
 <body>
 	<h1>
-		Lista de participantes e chamada da turma do aluno
-		<%=request.getParameter("studentName")%>
+		Lista de participantes e chamada da turma de 
+		<%=request.getParameter("discipline")%>
 	</h1>
 	<%
 		String studentName = request.getParameter("studentName");
@@ -109,12 +109,6 @@ input {
 				disciplineName);
 
 		boolean hasAttendanceList = !disciplineClass.getAttendanceList().isEmpty();
-
-		if (!hasAttendanceList) {
-	%>
-	<jsp:include page="AddNewAttendanceList.jsp" />
-	<%
-		}
 
 		if (shouldAdd != null) {
 			AttendanceList attendanceList = new AttendanceList();
@@ -136,6 +130,16 @@ input {
 		}
 	%>
 	<div>
+		<p><a href="MainPage.jsp">Voltar para main (Reinicia a aplicação)</a></p>
+		<p><a href="StudentList.jsp">Voltar para a página de seleção de alunos (NÃO reinicia a aplicação)</a></p>
+		
+		<%
+			if (!hasAttendanceList) {
+		%>
+		<jsp:include page="AddNewAttendanceList.jsp" />
+		<%
+			}
+		%>
 		<p>Adicionar uma nova lista de chamada</p>
 		<form method="post"
 			action="DisciplineClass.jsp?studentName=<%=studentName%>&discipline=<%=disciplineName%>">

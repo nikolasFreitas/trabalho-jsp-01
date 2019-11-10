@@ -37,6 +37,12 @@
 	p {
 		color: #050505;
 	}
+	
+	.warning {
+		font-size: 18px;
+		font-weight: bold;
+		color: #2c3e50;
+	}
 </style>
 	<% 
 		String isRedirected = request.getParameter("isRedirected");
@@ -44,7 +50,7 @@
 <body>
 	<h1>Bem-vindo a aplicação que será o futuro do IFRS</h1>
 	<div>
-	<p>ATENÇÃO! Não cadastrar nada no padrão UTF-8</p>
+	<p class="warning">ATENÇÃO! Não cadastrar nada no padrão UTF-8</p>
 		<%
 			if(isRedirected != null)
 			%> <p>É obrigatório passar por esta página antes de iniciar o sistema pela primeira vez</p> <%

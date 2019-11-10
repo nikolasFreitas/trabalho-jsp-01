@@ -30,9 +30,10 @@ public class CourseController {
 		return course.getDisciplineList().keySet();
 	}
 
-	public boolean addDisciplineClass(DisciplineClass disciplineClass, String disciplineName) {
+	public void addDisciplineClass(DisciplineClass disciplineClass, String disciplineName) {
 		Discipline discipline = getDiscipline(disciplineName);
-		return discipline.addNewClass(disciplineClass);
+		discipline.addNewClass(disciplineClass);
+		saveModel();
 	}
 
 	public void addDiscipline(Discipline discipline) {
@@ -62,6 +63,8 @@ public class CourseController {
 
 		AttendanceList attendanceList = getDisciplineClassFromStudent(studentName, disciplineName).getAttendanceList()
 				.getLast();
+		
+		System.out.println();
 		try {
 			boolean works = attendanceList.addStudentKey(studentName);
 
@@ -97,8 +100,14 @@ public class CourseController {
 
 	public DisciplineClass getDisciplineClassFromStudent(String studentName, String disciplineName) {
 		DisciplineClass disciplineClassHolder;
-		disciplineClassHolder = course.getDisciplineList().get(disciplineName).getDisciplineClassList().stream()
-				.filter(dc -> dc.getStudentList().containsKey(studentName)).findFirst().orElse(null);
+		disciplineClassHolder = course
+				.getDisciplineList()
+				.get(disciplineName)
+				.getDisciplineClassList()
+				.stream()
+				.filter(dc -> dc.getStudentList().containsKey(studentName))
+				.findFirst()
+				.orElse(null);
 
 		return disciplineClassHolder;
 	}

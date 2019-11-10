@@ -12,7 +12,7 @@ import models.Student;
 public class Start {
 	private Course course = new Course();
 	private ArrayList<Discipline> disciplineList = new ArrayList<Discipline>();
-	private ArrayList<DisciplineClass> disciplineClassesList = new ArrayList<DisciplineClass>();
+	private ArrayList<DisciplineClass> disciplineClassesList;
 	private ArrayList<AttendanceList> attendanceLists = new ArrayList<AttendanceList>();
 	private ArrayList<Student> studentList = new ArrayList<Student>();
 
@@ -23,7 +23,7 @@ public class Start {
 	public void mockInfos() {
 		createStudent();
 		createAttendanceList();
-		craeteDisciplinesClass();
+		createDisciplinesClass();
 		createDisciplines();
 		createCourse();
 	}
@@ -60,8 +60,10 @@ public class Start {
 		}
 	}
 
-	private void craeteDisciplinesClass() {
+	private void createDisciplinesClass() {
 		DisciplineClass disciplineClass = new DisciplineClass();
+		this.disciplineClassesList = new ArrayList<DisciplineClass>();
+		
 		this.disciplineClassesList.add(disciplineClass);
 		for (int i = 0; i < studentList.size(); i++) {
 			disciplineClass.addStudent(studentList.get(i));
@@ -78,11 +80,13 @@ public class Start {
 		disciplineList.add(discipline2);
 		
 		for (DisciplineClass disciplineClass : disciplineClassesList) {
-			
-			discipline.addNewClass(disciplineClass);
+			discipline.addNewClass(disciplineClass);			
+		}
+		this.createDisciplinesClass();
+		
+		for (DisciplineClass disciplineClass : disciplineClassesList) {
 			discipline2.addNewClass(disciplineClass);
 		}
-
 	}
 	
 	private void createCourse() {
