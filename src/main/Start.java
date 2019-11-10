@@ -2,6 +2,7 @@ package main;
 
 import java.util.ArrayList;
 
+import dao.CourseDao;
 import models.AttendanceList;
 import models.Course;
 import models.Discipline;
@@ -16,11 +17,23 @@ public class Start {
 	private ArrayList<Student> studentList = new ArrayList<Student>();
 
 	public Start() {
+
+	}
+	
+	public void mockInfos() {
 		createStudent();
 		createAttendanceList();
 		craeteDisciplinesClass();
 		createDisciplines();
 		createCourse();
+	}
+	
+	public void verifyCourse() {
+		CourseDao.setCourse(this.course);
+	}
+	
+	public void readCourse() {
+		this.course = CourseDao.getCourse();
 	}
 
 	private void createStudent() {
@@ -71,6 +84,7 @@ public class Start {
 	}
 	
 	private void createCourse() {
+		this.course.setCourseName("Sistemas para internet");
 		for (Discipline discipline : disciplineList) {
 			course.addDiscipline(discipline);						
 		}
