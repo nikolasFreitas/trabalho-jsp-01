@@ -1,7 +1,13 @@
 package controllers;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
+import dao.CourseDao;
 import models.AttendanceList;
 import models.Course;
 import models.Discipline;
@@ -9,10 +15,10 @@ import models.DisciplineClass;
 import models.Student;
 
 public class CourseController {
-	private Course course = new Course();
-	
+	private Course course;
+
 	public CourseController() {
-		
+		course = CourseDao.getCourse();
 	}
 
 	public Set<String> getDisciplineKeys() {
@@ -42,7 +48,7 @@ public class CourseController {
 	public boolean markPresence(Student student, String disciplineName) {
 		Discipline discipline = getDiscipline(disciplineName);
 		String name = student.getName();
-		if (getStudentFromDisciplineClass(name, disciplineName)) {
+		if (getStudentFromDisciplineClass(disciplineName).contains(student)) {
 			AttendanceList attendanceList = discipline.getDisciplineClassList().getLast().getAttendanceList().getLast();
 			try {
 				return attendanceList.addStudentKey(name);
@@ -63,8 +69,33 @@ public class CourseController {
 		throw new IllegalArgumentException("Disciplina \"" + disciplineName + "\" não encontranda");
 	}
 
-	private boolean getStudentFromDisciplineClass(String name, String disciplineName) {
+	public Set<Student> getStudentFromDisciplineClass(String disciplineName) {
+		Set<Student> studentNameList = new HashSet<>();
 		Discipline discipline = getDiscipline(disciplineName);
-		return discipline.getDisciplineClassList().getLast().getStudentList().containsKey(name);
+		discipline.getDisciplineClassList().stream().forEach(disciplineClassCustom -> {
+			studentNameList.addAll(disciplineClassCustom.getStudentList().values());
+		});
+
+		return studentNameList;
+	}
+	
+//	Retorna todas os estudantes
+	public Set<Student> getStudentFromDisciplineClass() {
+		Set<Student> studentNameList = new HashSet<>();
+		
+		List<Discipline> disciplineList = new LinkedList<Discipline>(course.getDisciplineList().values());
+		disciplineList.stream().forEach(disciplineKey -> {
+			disciplineKey.getDisciplineClassList().stream().forEach(disciplineClassCustom -> {
+				studentNameList.addAll(disciplineClassCustom.getStudentList().values());
+			});
+			
+		});
+		
+		return studentNameList;
+		
+	}
+
+	public Course getCourse() {
+		return this.course;
 	}
 }
