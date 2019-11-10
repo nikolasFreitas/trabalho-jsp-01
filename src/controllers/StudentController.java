@@ -5,7 +5,7 @@ import models.Student;
 import models.enums.TypeOfUser;
 
 public class StudentController {
-	private Student student = new Student();
+	private Student student;
 
 	public StudentController() {
 
