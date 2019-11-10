@@ -8,8 +8,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
 
-import models.Course;
-
 public class FileUtil {
 	// Alterar aqui o local onde se quer salvar o arquivo
 	private static final String fileLocal = "/home/nikolas/Study/2019-2/programacao-para-web/workspace/Trabalho-JSP-nikolas/";

@@ -30,14 +30,16 @@
 
 body {
 	margin: 0px;
+	background: #ecf0f1;
 }
 
 h1 {
 	text-align: center;
 	font-family: sans-serif;
 	padding: 15px;
-	background: #dedede;
+	background: #e67e22;
 	margin-top: 0px;
+	color: #ecf0f1;
 }
 
 li {

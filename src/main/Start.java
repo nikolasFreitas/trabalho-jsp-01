@@ -28,7 +28,7 @@ public class Start {
 		createCourse();
 	}
 	
-	public void verifyCourse() {
+	public void saveCourse() {
 		CourseDao.setCourse(this.course);
 	}
 	
@@ -38,7 +38,7 @@ public class Start {
 
 	private void createStudent() {
 		Student student = new Student();
-		student.setName("Getúlio");
+		student.setName("Getulio");
 		student.setId(1);
 
 		Student student2 = new Student();
@@ -70,9 +70,9 @@ public class Start {
 
 	private void createDisciplines() {
 		Discipline discipline = new Discipline();
-		discipline.setName("Matemática");
+		discipline.setName("Matematica");
 		Discipline discipline2 = new Discipline();
-		discipline2.setName("História");
+		discipline2.setName("Historia");
 		
 		disciplineList.add(discipline);
 		disciplineList.add(discipline2);

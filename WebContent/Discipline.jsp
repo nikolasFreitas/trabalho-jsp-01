@@ -25,14 +25,16 @@
 
 body {
 	margin: 0px;
+	background: #ecf0f1;
 }
 
 h1 {
 	text-align: center;
 	font-family: sans-serif;
 	padding: 15px;
-	background: #dedede;
+	background: #e67e22;
 	margin-top: 0px;
+	color: #ecf0f1;
 }
 
 div {
@@ -53,17 +55,22 @@ li {
 			<%
 				String studentName = request.getParameter("studentName");
 				List<Discipline> disciplineList = courseController.getDisciplineByStudent(studentName);
-				// @TODO Verificar se existe alguma disciplina antes, se não mostrar outra coisa
-				for(Discipline discipline : disciplineList) {
-					String qs = "studentName="+studentName+"&discipline="+discipline.getName();
-			%>
-			<li>
-				<a href="DisciplineClass.jsp?<%= qs %>"> 
-					<%=discipline.getName()%>
-				</a>
-			</li>
-			
-			<%} %>
+				if(disciplineList.isEmpty()){
+				%>
+					<p><a href="StudentList.jsp?studentName=<%=studentName%>">Voltal à página anterior</a></p>
+					<p>Este aluno não está matrículado em nenhuma disciplina</p>
+				<%
+				} else {
+					for(Discipline discipline : disciplineList) {
+						String qs = "studentName="+studentName+"&discipline="+discipline.getName();
+				%>
+						<li>
+							<a href="DisciplineClass.jsp?<%= qs %>"> 
+								<%=discipline.getName()%>
+							</a>
+						</li>						
+					<%}
+				}%>
 		</ul>
 	</div>
 </body>

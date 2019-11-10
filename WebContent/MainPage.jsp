@@ -4,7 +4,7 @@
 <jsp:useBean id="startPage" class="main.Start" scope="request" />
 <%
 	startPage.mockInfos();
-	startPage.verifyCourse();
+	startPage.saveCourse();
 %>
 <!DOCTYPE html>
 <html>
@@ -18,15 +18,16 @@
 	}
 	
 	body {
-		margin-top: 0px;
+		margin: 0px;
 	}
 	
 	h1 {
 		text-align: center;
 		font-family: sans-serif;
 		padding: 15px;
-		background: #dedede;
+		background: #e67e22;
 		margin-top: 0px;
+		color: #ecf0f1;
 	}
 	
 	div {
@@ -43,6 +44,7 @@
 <body>
 	<h1>Bem-vindo a aplicação que será o futuro do IFRS</h1>
 	<div>
+	<p>ATENÇÃO! Não cadastrar nada no padrão UTF-8</p>
 		<%
 			if(isRedirected != null)
 			%> <p>É obrigatório passar por esta página antes de iniciar o sistema pela primeira vez</p> <%
