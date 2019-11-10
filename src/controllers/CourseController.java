@@ -1,11 +1,11 @@
 package controllers;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
-import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import dao.CourseDao;
 import models.AttendanceList;
@@ -48,7 +48,7 @@ public class CourseController {
 	public boolean markPresence(Student student, String disciplineName) {
 		Discipline discipline = getDiscipline(disciplineName);
 		String name = student.getName();
-		if (getStudentFromDisciplineClass(disciplineName).contains(student)) {
+		if (getStudentListFromDisciplineClass(disciplineName).contains(student)) {
 			AttendanceList attendanceList = discipline.getDisciplineClassList().getLast().getAttendanceList().getLast();
 			try {
 				return attendanceList.addStudentKey(name);
@@ -69,7 +69,7 @@ public class CourseController {
 		throw new IllegalArgumentException("Disciplina \"" + disciplineName + "\" não encontranda");
 	}
 
-	public Set<Student> getStudentFromDisciplineClass(String disciplineName) {
+	public Set<Student> getStudentListFromDisciplineClass(String disciplineName) {
 		Set<Student> studentNameList = new HashSet<>();
 		Discipline discipline = getDiscipline(disciplineName);
 		discipline.getDisciplineClassList().stream().forEach(disciplineClassCustom -> {
@@ -79,20 +79,46 @@ public class CourseController {
 		return studentNameList;
 	}
 	
+	public DisciplineClass getDisciplineClassFromStudent(String studentName, String disciplineName) {
+		DisciplineClass disciplineClassHolder;
+		disciplineClassHolder = course.getDisciplineList()
+				.get(disciplineName)
+				.getDisciplineClassList()
+				.stream()
+				.filter(dc -> dc.getStudentList().containsKey(studentName))
+				.findFirst()
+				.orElse(null);
+			
+		return  disciplineClassHolder;
+	}
+	
 //	Retorna todas os estudantes
-	public Set<Student> getStudentFromDisciplineClass() {
-		Set<Student> studentNameList = new HashSet<>();
-		
+	public Set<Student> getStudentListFromDisciplineClass() {
+		Set<Student> studentList = new HashSet<>();
+
 		List<Discipline> disciplineList = new LinkedList<Discipline>(course.getDisciplineList().values());
-		disciplineList.stream().forEach(disciplineKey -> {
-			disciplineKey.getDisciplineClassList().stream().forEach(disciplineClassCustom -> {
-				studentNameList.addAll(disciplineClassCustom.getStudentList().values());
+		
+		disciplineList.stream().forEach(discipline -> {
+			discipline.getDisciplineClassList().stream().forEach(disciplineClassCustom -> {
+				studentList.addAll(disciplineClassCustom.getStudentList().values());
 			});
 			
 		});
 		
-		return studentNameList;
+		return studentList;
 		
+	}
+	
+	public List<Discipline> getDisciplineByStudent(String studentName) {
+		List<Discipline> disciplineHolder;
+		
+		disciplineHolder = course.getDisciplineList().values().stream().filter(discipline -> {
+			return discipline.getDisciplineClassList().stream().anyMatch(classList -> {
+				return classList.getStudentList().containsKey(studentName);
+			});
+		}).collect(Collectors.toList());
+		
+		return disciplineHolder;
 	}
 
 	public Course getCourse() {
