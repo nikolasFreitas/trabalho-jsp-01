@@ -9,7 +9,9 @@ public class CourseDao {
 	public static Course getCourse() {
 		try {
 			Course course = (Course) FileUtil.getObjectFromFile(courseFileName);
-			System.out.println(course.toString());
+			if (course != null) {
+				System.out.println(course.toString());				
+			}
 			return course;
 		} catch (ClassCastException e6) {
 			e6.printStackTrace();
