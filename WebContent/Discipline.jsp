@@ -46,18 +46,19 @@ li {
 }
 </style>
 <body>
-	<h1>Disciplinas que o estudante cursa</h1>
+	<h1>Disciplinas que o <%= request.getParameter("studentName") %> cursa</h1>
 	<div>
 		<p>Selecione a disciplina para ter mais detalhes</p>
 		<ul>
 			<%
 				String studentName = request.getParameter("studentName");
 				List<Discipline> disciplineList = courseController.getDisciplineByStudent(studentName);
-				
+				// @TODO Verificar se existe alguma disciplina antes, se não mostrar outra coisa
 				for(Discipline discipline : disciplineList) {
+					String qs = "studentName="+studentName+"&discipline="+discipline.getName();
 			%>
 			<li>
-				<a href="StudentList.jsp?discipline=<%=discipline.getName()%>"> 
+				<a href="DisciplineClass.jsp?<%= qs %>"> 
 					<%=discipline.getName()%>
 				</a>
 			</li>
