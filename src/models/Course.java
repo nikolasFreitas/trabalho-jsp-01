@@ -1,17 +1,29 @@
 package models;
 
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Course {
+public class Course implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -30126321285447658L;
+	
 	private String courseName;
 	private Map<String, Discipline> disciplineList = new TreeMap<String, Discipline>();
 
-	public void addDiscipline(Discipline discipline) {
+	public boolean addDiscipline(Discipline discipline) {
 		String name = discipline.getName();
-
-		disciplineList.put(name, discipline);
+		try {
+			disciplineList.put(name, discipline);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
 	}
 
 	public String getCourseName() {
